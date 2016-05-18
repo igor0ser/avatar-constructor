@@ -1,0 +1,62 @@
+*{
+	box-sizing: border-box;
+}
+
+body{
+	margin: 0;
+	background: url(../img/tweed.png);
+	color: #efefef;
+	font-family: Calibri;
+}
+
+header{
+	width: 960px;
+	height: 90px;
+	background: #444;
+	margin: auto;
+	border-radius: 0 0 8px 8px;
+	border: 2px solid #efefef;
+	border-top: none;
+}
+
+h1, h2{
+	margin: 0 ;
+	text-align: center;
+	line-height: 40px;
+}
+
+h1{
+	line-height: 90px;
+	margin: auto;
+	width: 300px;
+}
+
+.header-img{
+	width: 76px;
+	height: 76px;
+	border-radius: 50%;
+	background: #efefef;
+	padding: 6px 0 0 6px;
+	float: right;
+	margin: 6px 7px;
+}
+
+main{
+	width: 770px;
+	height: 770px;
+	margin: auto;
+	background: #444;
+	border: 2px solid #efefef;
+	border-top: none;
+	border-radius: 0 0 8px 8px;
+	position: relative;
+}
+
+canvas{
+	border: 2px solid #efefef;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+}
+
