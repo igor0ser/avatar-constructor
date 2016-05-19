@@ -28,19 +28,16 @@
 		];
 
 		var imgLib = {};
-
 		var type;
+
 		for (var i = 0; i < lib.length; i++) {
 			imgLib[lib[i].name] = [];
 			type = (lib[i].type) ? lib[i].type : '.png';
 			for (var j = 0; j < lib[i].quantity; j++) {
 				imgLib[lib[i].name].push('img/' + lib[i].name + '/' + j + type);
-				console.log('img/' + lib[i].name + '/' + j + type);
 			}
 		}
-
 		return imgLib;
-
 	});
 	
 })();
