@@ -22,7 +22,7 @@
 		<canvas id="c" width="450" height="450"></canvas>
 
 		<div class="column1">
-			<div class="select-btn" ng-repeat="(key, value) in ctrl.imgLib">
+			<div class="btn" ng-repeat="(key, value) in ctrl.imgLib">
 				{{key}}
 				<div class="select-box">
 					<div>
@@ -30,7 +30,32 @@
 					</div>
 				</div>
 			</div>
-</div>
+		</div>
+
+		<div class="column2">
+			<label class="btn">
+			Upload img
+			<input type="file">
+			</label>
+			<label class="btn">
+			Upload bg
+			<input type="file">
+			</label>
+			<button class="btn">Save img</button>
+		</div>
+
+		<form>
+			<button class="btn">Add</button>
+			<fieldset>
+				<input type="text" placeholder="Add text here">
+				<span>Font size</span>
+				<input type="number">
+				<span>Animation:</span>
+				<label for=""><input type="checkbox">Rotate</label>
+				<label for=""><input type="checkbox">Scale</label>
+				<label for=""><input type="checkbox">Translate</label>
+			</fieldset>
+		</form>
 	</main>
 
 	<!-- libs -->

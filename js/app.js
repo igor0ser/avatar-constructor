@@ -7,7 +7,7 @@
 		var lib = [
 			{
 				name: 'faces',
-				quantity: 8,
+				quantity: 9,
 				type: '.jpg'
 			},{
 				name: 'glasses',

@@ -10,7 +10,8 @@ body{
 }
 
 header{
-	width: 960px;
+	max-width: 960px;
+	min-width: 770px;
 	height: 90px;
 	background: #111;
 	margin: auto;
@@ -43,7 +44,6 @@ h1{
 
 main{
 	width: 770px;
-	height: 770px;
 	margin: auto;
 	background: #714C4C;
 	border: 2px solid #fff;
@@ -56,19 +56,23 @@ main{
 	box-sizing: content-box;
 	border: 2px solid #fff;
 	position: absolute !important;
-	top: 50%;
+	top: 50px;
 	left: 50%;
-	transform: translateX(-50%) translateY(-50%);
+	transform: translateX(-50%);
 	border-radius: 6px;
 }
 
-.column1{
+.column1, .column2{
 	width: 105px;
 	float: left;
-	margin: 115px 0 0 25px;
+	margin: 15px 25px;
 }
 
-.select-btn{
+.column2{
+	float: right;
+}
+
+.btn{
 	width: 105px;
 	border: 0;
 	box-shadow: 0;
@@ -83,9 +87,10 @@ main{
 	position: relative;
 	text-align: center;
 	line-height: 50px;
+	display: block;
 }
 
-.select-btn:active, .select-btn.active{
+.btn:active, .btn:hover{
 	background: #fff;
 	color: #111;
 }
@@ -103,7 +108,7 @@ main{
 	transition: width .6s linear;
 }
 
-.select-btn:hover .select-box{
+.btn:hover>.select-box{
 	width: 249px;
 	z-index: 3;
 }
@@ -125,4 +130,35 @@ main{
 
 .select-box img:hover{
 	border: 1px solid #555;
+}
+
+input[type="file"]{
+	display: none;
+}
+
+input[type="number"]{
+	width: 45px;
+}
+
+form{
+	margin: 475px auto 0;
+	width: 420px;
+}
+
+fieldset{
+	width: 310px;
+	border: none;
+}
+
+form .btn{
+	margin-top: 5px;
+	float: right;
+}
+
+form label{
+	line-height: 40px;
+}
+
+form input{
+	vertical-align: text-bottom;
 }

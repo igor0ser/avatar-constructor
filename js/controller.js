@@ -18,7 +18,7 @@
 
 
 	});
-	console.log(123);
+
 })();
 /*
 var canvas = new fabric.Canvas('c');
