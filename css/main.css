@@ -58,5 +58,69 @@ canvas{
 	top: 50%;
 	left: 50%;
 	transform: translateX(-50%) translateY(-50%);
+	border-radius: 6px;
 }
 
+.column1{
+	width: 105px;
+	float: left;
+	margin: 115px 0 0 25px;
+}
+
+.select-btn{
+	width: 105px;
+	border: 0;
+	box-shadow: 0;
+	background: #111;
+	color: #fff;
+	height: 50px;
+	margin-bottom: 25px;
+	font-weight: bold;
+	outline: 0;
+	cursor: pointer;
+	border-radius: 6px;
+	position: relative;
+	text-align: center;
+	line-height: 50px;
+}
+
+.select-btn:active, .select-btn.active{
+	background: #fff;
+	color: #111;
+}
+
+.select-box{
+	position: absolute;
+	left: 105px;
+	top: 0;
+	background: #fff;
+	z-index: 2;
+	width: 249px;
+	cursor: auto;
+	width: 0;
+	overflow: hidden;
+	transition: width 1s linear;
+}
+
+.select-btn:hover .select-box{
+	width: 249px;
+}
+
+.select-box div{
+	width: 249px;
+	padding: 10px;
+	border: 2px solid #ffdab9;
+	text-align: left;
+}
+
+.select-box img{
+	width: 75px;
+	height: auto;
+	vertical-align: middle;
+	border: 1px solid #fff;
+	cursor: pointer;
+}
+
+.select-box img:hover{
+	border: 1px solid #555;
+}
