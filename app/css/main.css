@@ -162,3 +162,7 @@ form label{
 form input{
 	vertical-align: text-bottom;
 }
+
+#save-img{
+	display: none;
+}

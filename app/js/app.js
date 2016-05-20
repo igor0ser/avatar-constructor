@@ -39,5 +39,10 @@
 		}
 		return imgLib;
 	});
+
+	app.config(function(canvasProvider){
+		console.log(canvasProvider);
+		canvasProvider.setCanvases('c', 'bg');
+	});
 	
 })();

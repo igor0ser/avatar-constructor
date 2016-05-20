@@ -5,6 +5,11 @@
 	app.controller('AvatarController', function(imgLib, canvas){
 
 		this.imgLib = imgLib;
+		canvas.setBgImg(imgLib.faces[0]);
+		this.text;
+		this.fontSize;
+
+
 		this.addImg = function(url, key){
 			console.log(key);
 			console.log(url);
@@ -14,8 +19,20 @@
 				canvas.addImg(url);
 			}
 		};
-		
 
+		this.addText = function(text, fontSize){
+			canvas.addText(this.text, +this.fontSize);
+			this.text = '';
+			this.fontSize = '';
+		};
+
+		var downloadLink = document.getElementById('save-img');
+		this.saveImg = function(){
+			canvas.saveImg(function(res){
+				downloadLink.href = res;
+				downloadLink.click();
+			});
+		};
 
 	});
 

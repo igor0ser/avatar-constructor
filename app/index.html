@@ -34,22 +34,24 @@
 
 		<div class="column2">
 			<label class="btn">
-			Upload img
-			<input type="file">
+				Upload img
+				<input type="file">
 			</label>
 			<label class="btn">
-			Upload bg
-			<input type="file">
+				Upload bg
+				<input type="file">
 			</label>
-			<button class="btn">Save img</button>
+			<button class="btn" ng-click="ctrl.saveImg()">
+				Save img
+			</button>
 		</div>
 
-		<form>
-			<button class="btn">Add</button>
+		<form ng-submit="ctrl.addText()">
+			<button class="btn" type="submit">Add</button>
 			<fieldset>
-				<input type="text" placeholder="Add text here">
+				<input type="text" placeholder="Add text here" required ng-model="ctrl.text">
 				<span>Font size</span>
-				<input type="number">
+				<input type="number" required ng-model="ctrl.fontSize">
 				<span>Animation:</span>
 				<label for=""><input type="checkbox">Rotate</label>
 				<label for=""><input type="checkbox">Scale</label>
@@ -57,6 +59,8 @@
 			</fieldset>
 		</form>
 	</main>
+
+	<a download="avatar.jpg" href="" title="ImageName" id="save-img">Download</a>
 
 	<!-- libs -->
 	<script src="bower_components/angular/angular.min.js"></script>
