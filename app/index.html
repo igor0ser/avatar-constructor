@@ -35,7 +35,7 @@
 		<div class="column2">
 			<label class="btn">
 				Upload img
-				<input type="file">
+				<input type="file" ng-change="ctrl.uploadImg($event)" ng-model="fileImg">
 			</label>
 			<label class="btn">
 				Upload bg
@@ -58,6 +58,9 @@
 				<label for=""><input type="checkbox">Translate</label>
 			</fieldset>
 		</form>
+	<div class="btn" ngf-select="console.log(ctrl.upload($file))">AAAAAa</div>
+	<button ngf-select="uploadFiles($files)" multiple 
+	            accept="image/*">Select Files</button>
 	</main>
 
 	<a download="avatar.jpg" href="" title="ImageName" id="save-img">Download</a>
