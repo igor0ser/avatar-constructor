@@ -43,7 +43,7 @@
 
 
 
-		$scope.upload = function (files) {
+		$scope.uploadFiles = function (files) {
 		    $scope.files = files;
 		    console.log(files);
 		    if (files && files.length) {
