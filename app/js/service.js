@@ -15,6 +15,42 @@
 			}
 		});
 
+		var animation = {
+			rotate: function(obj){
+				obj.animate('angle', '=+1', {
+					onChange: canvas.renderAll.bind(canvas),
+					duration: 5,
+					onComplete: function(){
+						requestAnimationFrame(animation.rotate.bind(null, obj));
+					}
+				});
+			},
+			scale: function(obj, coef){
+				coef = coef || 1.01;
+				if (obj.width * obj.scaleX > canvas.width || obj.width * obj.scaleX < 50){
+					coef = 1 / coef;
+				} 
+				obj.scaleX *= coef;
+				obj.scaleY *= coef;
+				canvas.renderAll();
+				requestAnimationFrame(animation.scale.bind(null, obj, coef));
+			},
+			translate: function(obj, top, left){
+				left = left || 2;
+				top = top || 3;
+				obj.left += left;
+				obj.top += top;
+				if (obj.left > canvas.width || obj.left < 0){
+					left = -left;
+				}
+				if (obj.top > canvas.height || obj.top < 0){
+					top = -top;
+				}
+				canvas.renderAll();
+				requestAnimationFrame(animation.translate.bind(null, obj, top, left));
+
+			}
+		};
 
 		function setBgImg(imgUrl) {
 			fabric.Image.fromURL(imgUrl, function (img) {
@@ -37,10 +73,22 @@
 			});
 		}
 
-		function addText(text, fontSize) {
-			var t = new fabric.Text(text, {fontSize: +fontSize, fontFamily: 'Calibri', stroke: '#fff', fill: 'red'});
+		function addText(text, fontSize, animationObj) {
+			var t = new fabric.Text(text, {
+				fontSize: +fontSize,
+				fontFamily: 'Calibri',
+				stroke: '#fff',
+				fill: 'red',
+				originX: 'center',
+				originY: 'center'
+			});
 			canvas.centerObject(t);
 			canvas.add(t);
+			for (var key in animationObj){
+				if (animationObj[key]){
+					animation[key](t);
+				}
+			}
 		}
 
 		function saveImg(callback) {
@@ -56,6 +104,8 @@
 				canvas.setBackgroundColor(null, canvas.renderAll.bind(canvas));
 			});
 		}
+
+
 
 
 		return {

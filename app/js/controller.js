@@ -6,9 +6,15 @@
 
 		this.imgLib = imgLib;
 		canvas.setBgImg(imgLib.faces[0]);
-		this.text;
-		this.fontSize;
-
+		this.form = {
+			text: '22',
+			fontSize: 22,
+			animation: {
+				rotate: false,
+				scale: false,
+				translate: true
+			}
+		};
 
 		this.addImg = function(url, key){
 			console.log(key);
@@ -21,9 +27,17 @@
 		};
 
 		this.addText = function(text, fontSize){
-			canvas.addText(this.text, +this.fontSize);
-			this.text = '';
-			this.fontSize = '';
+			console.log(this.form);
+			canvas.addText(this.form.text, +this.form.fontSize, this.form.animation);
+			this.form = {
+				text: '',
+				fontSize: '',
+				animation: {
+					rotate: false,
+					scale: false,
+					translate: false
+				}
+			};
 		};
 
 		var downloadLink = document.getElementById('save-img');
@@ -43,29 +57,26 @@
 
 
 
-		$scope.uploadFiles = function (files) {
-		    $scope.files = files;
-		    console.log(files);
-		    if (files && files.length) {
-		        Upload.upload({
-		            url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
-		            data: {
-		                files: files
-		            }
-		        }).then(function (response) {
-		            $timeout(function () {
-		                $scope.result = response.data;
-		                console.log(response.data);
-		            });
-		        }, function (response) {
-		            if (response.status > 0) {
-		                $scope.errorMsg = response.status + ': ' + response.data;
-		            }
-		        }, function (evt) {
-		            $scope.progress = 
-		                Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-		        });
-		    }
+		$scope.uploadFiles = function(file, errFiles) {
+			$scope.f = file;
+			$scope.errFile = errFiles && errFiles[0];
+			if (file) {
+				file.upload = Upload.upload({
+					url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
+					data: {file: file}
+				});
+
+				file.upload.then(function (response) {
+					$timeout(function () {
+						file.result = response.data;
+						console.log(file.result);
+/*						var reader = new FileReader();
+						reader.onload = function (f) {
+							console.log(f);
+						}*/
+					});
+				}, function (response) {}, function (evt) {});
+			}   
 		};
 
 	});
