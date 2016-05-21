@@ -5,9 +5,6 @@
 	app.provider('canvas', function(){
 
 		var canvas;
-		var bg;
-
-		var bgImg;
 
 		document.addEventListener('keydown', function(e){
 			if (e.which === 46 && canvas.getActiveObject()){
@@ -38,14 +35,10 @@
 			translate: function(obj, top, left){
 				left = left || 2;
 				top = top || 3;
+				if (obj.left > canvas.width || obj.left < 0){ left = -left; }
+				if (obj.top > canvas.height || obj.top < 0){ top = -top; }
 				obj.left += left;
 				obj.top += top;
-				if (obj.left > canvas.width || obj.left < 0){
-					left = -left;
-				}
-				if (obj.top > canvas.height || obj.top < 0){
-					top = -top;
-				}
 				canvas.renderAll();
 				requestAnimationFrame(animation.translate.bind(null, obj, top, left));
 
@@ -55,11 +48,10 @@
 		function setBgImg(imgUrl) {
 			fabric.Image.fromURL(imgUrl, function (img) {
 				var ratio = img.width / img.height;
-				img.width = bg.getWidth();
-				img.height = bg.getHeight();
-				bg.centerObject(img);
-				bg.setBackgroundImage(img, bg.renderAll.bind(bg));
-				bgImg = imgUrl;
+				img.width = canvas.getWidth();
+				img.height = canvas.getHeight();
+				canvas.centerObject(img);
+				canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
 			});
 		}
 
@@ -72,6 +64,29 @@
 				canvas.add(img);
 			});
 		}
+
+		function setBgImgFromFile(data){
+			fabric.util.loadImage(data, function (img) {
+				var oImg = new fabric.Image(img);
+				var ratio = oImg.width / oImg.height; 
+				oImg.width = canvas.width;
+				oImg.height = oImg.width / ratio;
+				canvas.centerObject(oImg);
+				canvas.setBackgroundImage(oImg, canvas.renderAll.bind(canvas));
+			});
+		}
+
+		function addImgFromFile(data){
+			fabric.util.loadImage(data, function (img) {
+				var oImg = new fabric.Image(img);
+				var ratio = img.width / img.height;
+				oImg.width = canvas.getWidth() / 3;
+				oImg.height = oImg.width / ratio;
+				canvas.centerObject(oImg);
+				canvas.add(oImg);
+			});
+		}
+
 
 		function addText(text, fontSize, animationObj) {
 			var t = new fabric.Text(text, {
@@ -93,35 +108,39 @@
 
 		function saveImg(callback) {
 			canvas.deactivateAll().renderAll();
-			fabric.Image.fromURL(bgImg, function (img) {
-				var ratio = img.width / img.height;
-				img.width = bg.getWidth();
-				img.height = bg.getHeight();
-				canvas.centerObject(img);
-				canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
-				var res = canvas.toDataURL();
-				callback(res);
-				canvas.setBackgroundColor(null, canvas.renderAll.bind(canvas));
-			});
+			var res = canvas.toDataURL();
+			callback(res);
 		}
 
 
 
 
 		return {
-			setCanvases: function(id1, id2){
-				canvas = new fabric.Canvas(id1);
-				bg = new fabric.StaticCanvas(id2);
+			setCanvas: function(id){
+				canvas = new fabric.Canvas(id);
 			},
 			$get: function(){
 				return {
 					setBgImg: setBgImg,
 					addImg: addImg,
+					setBgImgFromFile: setBgImgFromFile,
+					addImgFromFile: addImgFromFile,
 					addText: addText,
 					saveImg: saveImg
 				};
 			}
 		};
 
+	});
+
+
+	app.directive('customOnChange', function() {
+		return {
+			restrict: 'A',
+			link: function (scope, element, attrs) {
+				var onChangeHandler = scope.$eval(attrs.customOnChange);
+				element.bind('change', onChangeHandler);
+			}
+		};
 	});
 })();

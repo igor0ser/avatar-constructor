@@ -2,19 +2,10 @@
 	'use strict';
 
 	var app = angular.module('avatar');
-	app.controller('AvatarController', function(imgLib, canvas, Upload, $scope, $timeout){
+	app.controller('AvatarController', function(imgLib, canvas, $scope){
 
 		this.imgLib = imgLib;
 		canvas.setBgImg(imgLib.faces[0]);
-		this.form = {
-			text: '22',
-			fontSize: 22,
-			animation: {
-				rotate: false,
-				scale: false,
-				translate: true
-			}
-		};
 
 		this.addImg = function(url, key){
 			console.log(key);
@@ -48,54 +39,51 @@
 			});
 		};
 
-
-		this.uploadImg = function ($event) {
-			console.log(12345);
-			console.log($event);
-			console.log($event.target.files[0]);
+		$scope.uploadBg = function(event){
+			var files = event.target.files;
+			var file = event.target.files[0];
+			var reader = new FileReader();
+			reader.onload = function (f) {
+				var data = f.target.result;	
+				canvas.setBgImgFromFile(data);
+			};
+			reader.readAsDataURL(file);
 		};
 
+		$scope.uploadImg = function(event){
+			var files = event.target.files;
+			console.log(files);
 
-
-		$scope.uploadFiles = function(file, errFiles) {
-			$scope.f = file;
-			$scope.errFile = errFiles && errFiles[0];
-			if (file) {
-				file.upload = Upload.upload({
-					url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
-					data: {file: file}
-				});
-
-				file.upload.then(function (response) {
-					$timeout(function () {
-						file.result = response.data;
-						console.log(file.result);
-/*						var reader = new FileReader();
-						reader.onload = function (f) {
-							console.log(f);
-						}*/
-					});
-				}, function (response) {}, function (evt) {});
-			}   
+			var file = event.target.files[0];
+			var reader = new FileReader();
+			reader.onload = function (f) {
+				var data = f.target.result;	
+				canvas.addImgFromFile(data);
+			};
+			reader.readAsDataURL(file);
 		};
 
 	});
+
+
 
 })();
+
+
 /*var canvas = new fabric.Canvas('c');
 document.getElementById('file').addEventListener("change", function (e) {
-  var file = e.target.files[0];
-  var reader = new FileReader();
-  reader.onload = function (f) {
+var file = e.target.files[0];
+var reader = new FileReader();
+reader.onload = function (f) {
 	var data = f.target.result;					
 	fabric.Image.fromURL(data, function (img) {
-	  var oImg = img.set({left: 0, top: 0, angle: 00,width:100, height:100}).scale(0.9);
-	  canvas.add(oImg).renderAll();
-	  var a = canvas.setActiveObject(oImg);
-	  var dataURL = canvas.toDataURL({format: 'png', quality: 0.8});
+	var oImg = img.set({left: 0, top: 0, angle: 00,width:100, height:100}).scale(0.9);
+	canvas.add(oImg).renderAll();
+	var a = canvas.setActiveObject(oImg);
+	var dataURL = canvas.toDataURL({format: 'png', quality: 0.8});
 	});
-  };
-  reader.readAsDataURL(file);
+};
+reader.readAsDataURL(file);
 });*/
 /*
 var canvas = new fabric.Canvas('c');

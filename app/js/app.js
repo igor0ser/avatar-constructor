@@ -42,7 +42,9 @@
 
 	app.config(function(canvasProvider){
 		console.log(canvasProvider);
-		canvasProvider.setCanvases('c', 'bg');
+		canvasProvider.setCanvas('c');
 	});
+
+	
 	
 })();
