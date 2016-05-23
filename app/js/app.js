@@ -10,20 +10,20 @@
 				quantity: 9,
 				type: '.jpg'
 			},{
+				name: 'mask',
+				quantity: 4
+			},{
 				name: 'glasses',
 				quantity: 5
 			},{
 				name: 'hair',
 				quantity: 9
 			},{
-				name: 'lips',
-				quantity: 6
-			},{
-				name: 'mask',
-				quantity: 4
-			},{
 				name: 'beards',
 				quantity: 8
+			},{
+				name: 'lips',
+				quantity: 6
 			}
 		];
 
@@ -38,6 +38,16 @@
 			}
 		}
 		return imgLib;
+	});
+
+	app.directive('customOnChange', function() {
+		return {
+			restrict: 'A',
+			link: function (scope, element, attrs) {
+				var onChangeHandler = scope.$eval(attrs.customOnChange);
+				element.bind('change', onChangeHandler);
+			}
+		};
 	});
 
 	app.config(function(canvasProvider){

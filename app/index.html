@@ -35,11 +35,11 @@
 		<div class="column2">
 			<label class="btn">
 				Upload img
-				<input type="file" ng-change="ctrl.uploadImg($event)" ng-model="fileImg">
+				<input type="file" custom-on-change="uploadImg">
 			</label>
 			<label class="btn">
 				Upload bg
-				<input type="file">
+				<input type="file" custom-on-change="uploadBg">
 			</label>
 			<button class="btn" ng-click="ctrl.saveImg()">
 				Save img
@@ -49,21 +49,19 @@
 		<form ng-submit="ctrl.addText()">
 			<button class="btn" type="submit">Add</button>
 			<fieldset>
-				<input type="text" placeholder="Add text here" required ng-model="ctrl.text">
+				<input type="text" placeholder="Add text here" required ng-model="ctrl.form.text">
 				<span>Font size</span>
-				<input type="number" required ng-model="ctrl.fontSize">
+				<input type="number" required ng-model="ctrl.form.fontSize">
 				<span>Animation:</span>
-				<label for=""><input type="checkbox">Rotate</label>
-				<label for=""><input type="checkbox">Scale</label>
-				<label for=""><input type="checkbox">Translate</label>
+				<label><input type="checkbox" ng-model="ctrl.form.animation.rotate" ng-change="console.log(12)">Rotate</label>
+				<label><input type="checkbox" ng-model="ctrl.form.animation.scale">Scale</label>
+				<label><input type="checkbox" ng-model="ctrl.form.animation.translate">Translate</label>
 			</fieldset>
 		</form>
-	<div class="btn" ngf-select="console.log(ctrl.upload($file))">AAAAAa</div>
-	<button ngf-select="uploadFiles($files)" multiple 
-	            accept="image/*">Select Files</button>
-	</main>
 
 	<a download="avatar.jpg" href="" title="ImageName" id="save-img">Download</a>
+	</main>
+
 
 	<!-- libs -->
 	<script src="bower_components/angular/angular.min.js"></script>
